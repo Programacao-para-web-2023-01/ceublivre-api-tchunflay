@@ -21,7 +21,7 @@ class Product(BaseModel):
 @app.get("/products/{name}")
 async def get_products_by_name(name: str):
     cs = cnx.cursor(dictionary=True)
-    query = f"SELECT * from `products` WHERE `product_name` = '{name}'"
+    query = f"SELECT * from `products` WHERE `product_name` = '{name}' ORDER BY `product_rate` DESC"
 
     cs.execute(query)
     l = cs.fetchall()
@@ -30,9 +30,18 @@ async def get_products_by_name(name: str):
 
     raise HTTPException(status_code=404, detail="product not found")
 
-# @app.get("/products")
-# async def get_products_by_brand(brand:str):
-#
+@app.get("/products/{brand}")
+async def get_products_by_brand(brand:str):
+    cs = cnx.cursor(dictionary=True)
+    query = f"SELECT * from `products` WHERE `product_brand` = '{brand}' ORDER BY `product_rate` DESC"
+
+    cs.execute(query)
+    l = cs.fetchall()
+    if len(l) != 0:
+        return l
+
+    raise HTTPException(status_code=404, detail="product not found")
+
 #
 # @app.get("/products")
 # async def get_products_by_price(price:float):
