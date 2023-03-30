@@ -1,7 +1,5 @@
 create database product_list;
 
-show databases;
-
 use product_list;
 
 create table `products`(
@@ -23,12 +21,10 @@ INSERT INTO products(
     `product_category`,
     `product_rate`,
     `product_price`
-)VALUES(
-	"PS5", "Sony",
-    "Console de Jogos",
-    "Videogame",
-    5.5,
-    5499.99
-    );
+)
+
+VALUES
+("PS5", "Sony", "Console de Jogos", "Videogame", 5.5, 5499.99)
+("PS5", "Sony", "Console de Jogos", "Videogame", 7.9, 4599.99)
+("PS4", "Sony", "Console de Jogos - Playstation 4 DUALSHOCK x1", "Videogame", 9.3, 3499.99);
     
-SELECT * from `products` WHERE `product_name` = "PS5";

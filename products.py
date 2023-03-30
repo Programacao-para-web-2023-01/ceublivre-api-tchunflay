@@ -18,10 +18,10 @@ class Product(BaseModel):
     price: float
 
 
-@app.get("/products/{name}")
+@app.get("/products/name")
 async def get_products_by_name(name: str):
     cs = cnx.cursor(dictionary=True)
-    query = f"SELECT * from `products` WHERE `product_name` = '{name}' ORDER BY `product_rate` DESC"
+    query = f"SELECT * FROM `products` WHERE product_name LIKE CONCAT ('%','{name}','%') ORDER BY product_rate DESC;"
 
     cs.execute(query)
     l = cs.fetchall()
@@ -30,10 +30,24 @@ async def get_products_by_name(name: str):
 
     raise HTTPException(status_code=404, detail="product not found")
 
-@app.get("/products/{brand}")
+
+@app.get("/products/category")
+async def get_products_by_category(category:str):
+    cs = cnx.cursor(dictionary=True)
+    query = f"SELECT * FROM products WHERE product_category LIKE CONCAT ('%','{category}','%') ORDER BY product_rate DESC;"
+
+    cs.execute(query)
+    l = cs.fetchall()
+    if len(l) != 0:
+        return l
+
+    raise HTTPException(status_code=404, detail="product not found")
+
+
+@app.get("/products/brand")
 async def get_products_by_brand(brand:str):
     cs = cnx.cursor(dictionary=True)
-    query = f"SELECT * from `products` WHERE `product_brand` = '{brand}' ORDER BY `product_rate` DESC"
+    query = f"SELECT * FROM products WHERE product_brand LIKE CONCAT ('%','{brand}','%') ORDER BY product_rate DESC;"
 
     cs.execute(query)
     l = cs.fetchall()
@@ -42,14 +56,15 @@ async def get_products_by_brand(brand:str):
 
     raise HTTPException(status_code=404, detail="product not found")
 
-#
-# @app.get("/products")
-# async def get_products_by_price(price:float):
-#
-#
-# @app.get("/products")
-# async def get_products_by_category(category:str):
-#
-#
-# @app.get("/products")
-# async def get_products_by_rate(rate:str):
+
+@app.get("/products/description")
+async def get_products_by_description(description:str):
+    cs = cnx.cursor(dictionary=True)
+    query = f"SELECT * FROM products WHERE product_description LIKE CONCAT ('%', '{description}', '%') ORDER BY product_rate DESC;"
+
+    cs.execute(query)
+    l = cs.fetchall()
+    if len(l) !=0:
+        return l
+
+    raise HTTPException(status_code=404, detail="product not found")
