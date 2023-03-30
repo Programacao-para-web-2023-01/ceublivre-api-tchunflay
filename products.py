@@ -25,7 +25,7 @@ async def get_products_by_name(name: str):
 
     cs.execute(query)
     l = cs.fetchall()
-    if len(l) != 0:
+    if len(l):
         return l
 
     raise HTTPException(status_code=404, detail="product not found")
