@@ -38,7 +38,7 @@ async def get_products_by_category(category:str):
 
     cs.execute(query)
     l = cs.fetchall()
-    if len(l) != 0:
+    if len(l):
         return l
 
     raise HTTPException(status_code=404, detail="product not found")
@@ -51,7 +51,7 @@ async def get_products_by_brand(brand:str):
 
     cs.execute(query)
     l = cs.fetchall()
-    if len(l) != 0:
+    if len(l):
         return l
 
     raise HTTPException(status_code=404, detail="product not found")
@@ -64,7 +64,7 @@ async def get_products_by_description(description:str):
 
     cs.execute(query)
     l = cs.fetchall()
-    if len(l) !=0:
+    if len(l):
         return l
 
     raise HTTPException(status_code=404, detail="product not found")
