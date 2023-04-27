@@ -16,8 +16,6 @@ uvicorn==0.21.1
 sqlmodel==0.0.8
 SQLAlchemy==1.4.41
 sqlalchemy2-stubs==0.0.2a33
-psycopg2-binary
-sqlalchemy
 sqlalchemy-cockroachdb
 psycopg2==2.9.6
 psycopg2-binary==2.9.6

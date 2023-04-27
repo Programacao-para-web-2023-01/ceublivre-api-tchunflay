@@ -3,7 +3,7 @@ from sqlmodel import Field, SQLModel, Session, create_engine, select
 import psycopg2
 import os
 
-conn = psycopg2.connect(os.environ['postgresql://tchun:TvMo1r2edgiZUbgQVi8LzQ@tchunflay-758.g8x.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full'])
+db = psycopg2.connect(os.environ["postgresql://tchun:TvMo1r2edgiZUbgQVi8LzQ@tchunflay-758.g8x.cockroachlabs.cloud:26257/products?sslmode=verify-full"])
 
 #create table model
 class Products(SQLModel, table=True):
