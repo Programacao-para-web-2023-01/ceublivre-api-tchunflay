@@ -13,7 +13,7 @@ class Products(SQLModel, table=True):
     image: str
 
 #create database based on above sqlmodel
-engine = create_engine("sqlite:///database.db")
+engine = create_engine("sqlite:///database.db", echo=True)
 
 def create_database():
     SQLModel.metadata.create_all(engine)
@@ -32,6 +32,11 @@ def main():
     create_database()
     insert_data()
 
-if __name__ == "__tb_products__":
-    main()
+def search():
+    with Session(engine) as session:
+        statement = select(Products)
+        results = session.exec(statement)
+        for product in results:
+            return product
+
     
