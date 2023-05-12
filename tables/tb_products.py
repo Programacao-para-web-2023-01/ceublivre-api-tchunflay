@@ -1,9 +1,10 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel, Session, create_engine, select
-import psycopg2
+from dotenv import load_dotenv
 import os
 
-db = psycopg2.connect(os.environ["postgresql://tchun:TvMo1r2edgiZUbgQVi8LzQ@tchunflay-758.g8x.cockroachlabs.cloud:26257/products?sslmode=verify-full"])
+load_dotenv()
+connection_string = f'mysql+mysqlconnector://{os.environ.get("USER")}:{os.environ.get("PASSWORD")}@{os.environ.get("HOSTNAME")}:3306/{os.environ.get("DATABASE")}'
 
 #create table model
 class Products(SQLModel, table=True):
@@ -17,7 +18,7 @@ class Products(SQLModel, table=True):
     image: str
 
 #create database based on above sqlmodel
-engine = create_engine("sqlite:///database.db", echo=True)
+engine = create_engine(connection_string, echo=True)
 
 def create_database():
     SQLModel.metadata.create_all(engine)
