@@ -40,7 +40,6 @@ def main():
 def search():
     with Session(engine) as session:
         statement = select(Products)
-        results = session.exec(statement)
-        for product in results:
-            return product
+        results = session.exec(statement).all()
+        return results
 
